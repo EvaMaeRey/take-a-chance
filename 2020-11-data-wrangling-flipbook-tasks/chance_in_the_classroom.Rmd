@@ -2,7 +2,7 @@
 title: "Using flipbooks to build outcome-oriented educational tasks"
 subtitle: "For *Chance Magazine's* 'Taking a chance in the classroom'"
 author: "Evangeline Reynolds, June 2020"
-output: html_document
+output: pdf_document
   # xaringan::moon_reader:
   #   lib_dir: libs
   #   css: [default, hygge, ninjutsu]
@@ -26,7 +26,7 @@ library(tidyverse)
 ```
 
 
-![Photo Credit: Joshua Coleman via Unsplash](https://images.unsplash.com/photo-1533179856364-b2a4a66fa83e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80)
+
 
 
 ---
@@ -143,7 +143,7 @@ cars %>%
 
 
 
-<!-- Chance is a quarterly non-technical statistics magazine published jointly by the American Statistical Association and Taylor & Francis Group. It was established in 1988, and Taylor & Francis has published it since 2012. The magazine sponsors the blog "The Statistics Forum", which allows anyone to post their thoughts on probability and statistics. -->
+<!-- Chance is a quarterly non-technical statistics magazine published jointly by the American Statistical Association and Taylor \& Francis Group. It was established in 1988, and Taylor \& Francis has published it since 2012. The magazine sponsors the blog "The Statistics Forum", which allows anyone to post their thoughts on probability and statistics. -->
 
 <!-- https://chance.amstat.org/ -->
 
