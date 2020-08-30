@@ -1,0 +1,189 @@
+---
+title: "Data manipulation practice"
+author: "Evangeline Reynolds"
+date: ""
+output:
+  xaringan::moon_reader:
+    seal: false
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+
+
+
+
+
+
+class: left, bottom, inverse
+background-image: url(https://images.unsplash.com/photo-1533179856364-b2a4a66fa83e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80)
+background-size: 87%
+background-position: 40% 40%
+
+# .column.Large[Wrangle]
+## April 23, 2020
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+#### .column[Gina Reynolds<br>  Photo Credit: Joshua Coleman]
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 80%}
+
+@media print {
+  .has-continuation {
+    display: block;
+  }
+}
+```
+
+
+
+```{r include = F}
+knitr::opts_chunk$set(echo = F, cache = F, message = F, warning = F, comment = "")
+library(flipbookr)
+```
+
+---
+class: inverse, middle center
+
+# Set up
+
+---
+
+#### The following exercises are designed to help you practice your data wrangling "vocabulary". In the exercises, you'll always start from the full gapminder data and wrangle to a target using functions from {dplyr} (one of the packages made available in the tidyverse).
+
+--
+
+### Load the following packages:
+
+```{r, echo = T}
+library(gapminder)  # The data package
+library(tidyverse)  # Contains the data manipulation tools
+```
+
+--
+
+
+#### Make sure to that the number of observations and columns in your result match the target outcome.  Let's recall the full dimensions of the gapminder data: 
+
+```{r, echo = T}
+# dim gives number of rows, then number of columns
+dim(gapminder)
+```
+
+--
+
+Some other features to have in mind:
+
+- {gapminder} only reports data every 5 years, from 1952 to 2007
+- only {142} countries are included in the data
+
+
+---
+
+## You might use some of the following functions from the {dplyr} package:
+
+|function |action |
+| :--- | ---: |
+| filter()    | *keep rows (if true)*|
+| select()    | *keep variables (or drop them `-`var)*|
+| mutate()    | *create a new variable*|
+| case_when() | *is used for "recoding" variable, often used with mutate()*|
+| rename()    | *renaming variables*|
+| arrange()   | *order rows based on a variable*|
+| slice()     | *keep or drop rows based on row number |
+
+
+---
+
+
+
+# Target #1
+
+
+```{r selection, echo = F}
+gapminder %>% 
+  filter(year == 2002) %>% 
+  select(-continent, -lifeExp) %>% 
+  mutate(gdp = gdpPercap * pop)
+```
+
+
+
+---
+
+`r chunk_reveal("selection", display_type = "output", title = "### Walk through #1")`
+
+
+
+
+---
+
+
+
+# Target #2
+
+
+```{r filterarrselect, echo = F}
+gapminder %>% 
+  filter(year == 2007) %>% 
+  select(country, year, pop) %>% 
+  mutate(pop_million = pop/ 1000000) %>% 
+  filter(pop_million > 100) %>% 
+  arrange(-pop) 
+```
+
+
+---
+
+`r chunk_reveal("filterarrselect", display_type = "output", title = "### Walk through #2")`
+
+
+
+
+---
+
+
+# Target #3
+
+
+```{r filterage, echo = F}
+gapminder %>% 
+  filter(year == 2007) %>% 
+  select(country, lifeExp, year) %>% 
+  filter(lifeExp >= 80) %>% 
+  arrange(-lifeExp)
+```
+
+
+---
+
+`r chunk_reveal("filterage", display_type = "output", title = "## Walk through #3")`
+
+
+
+
+---
+class: center, inverse, middle
+
+
+# Congrats! You're done.

@@ -1,0 +1,183 @@
+---
+title: "Using flipbooks to build outcome-oriented educational tasks"
+subtitle: "For *Chance Magazine's* 'Taking a chance in the classroom'"
+author: "Evangeline Reynolds, June 2020"
+output: html_document
+  # xaringan::moon_reader:
+  #   lib_dir: libs
+  #   css: [default, hygge, ninjutsu]
+  #   nature:
+  #     ratio: 16:10
+  #     highlightStyle: github
+  #     highlightLines: true
+  #     countIncrementalSlides: false
+---
+
+
+
+
+```{r setup, include = F}
+# This is the recommended set up for flipbooks
+# you might think about setting cache to TRUE as you gain practice --- building flipbooks from scracth can be time consuming
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, warning = FALSE, 
+                      comment = "", cache = F, fig.retina = 3, eval = T)
+library(flipbookr)
+library(tidyverse)
+```
+
+
+![Photo Credit: Joshua Coleman via Unsplash](https://images.unsplash.com/photo-1533179856364-b2a4a66fa83e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1267&q=80)
+
+
+---
+
+One goal of data science or statistics classes is to give students practice with tools so that they are comfortable preparing and analyzing data.  A new way to engage students with such tasks is by using the new {flipbookr} package to build outcome-oriented exercises.  
+
+The flipbookr package is a tool that was originally built to show analysis code pipelines (manipulation, visualization, statistical analysis), step-by-step with output in a slide-show presentation.  This gives you a movie-like experience linking new code to the change that it triggers in output.  
+
+But flipbookr can also be used in a mode where *only output* is displayed.  This mode is useful for data science and statistics classroom use!  Flipbookr can help educators build outcome oriented tasks.  
+
+# What's this new style of exercise?
+
+Let's think about an exercise to build up data manipulation practice using flipbookr.  First, there might be a reference section of what functions can be used to accomplish the required tasks, or the instructor can present these functions. Then in a flipbook a target is introduced.  The target will be a final output of a data manipulation pipeline, where the input is a familiar data set.  (I use the 'gapminder' data set.  My students know the data set having seen the Hans Rosling presentation, and having worked with it a bit for data visualization.) After presenting the final target, a walk-through from input to target --- including intermediary states --- are displayed.  Students are instructed to 'wrangle to it'; i.e. use data manipulation functions to wrangle their way to the target output.  Subsequent exercises (which may become progressively more challenging given more wrangling steps) are structured in the same way; first the target output is presented, and then a walk-though with intermediate outputs. An example of a flipbook containing data manipulation exercise can be viewed [here](https://evamaerey.github.io/data_manipulation/exercises/wrangle_away#1). 
+
+```{r, include = F}
+library(gapminder)
+library(dplyr)
+```
+
+```{r four_steps, include = F}
+gapminder %>% 
+  mutate(gdp = pop * gdpPercap) %>% 
+  filter(year == 1952) %>% 
+  filter(continent == "Oceania") %>% 
+  select(country, gdp, year)
+```
+
+
+```{r, eval = F, echo = F}
+pagedown::chrome_print("toy_exercise.html")
+```
+
+```{r, echo = F, out.width="50%"}
+dir <- "figures"
+
+if(!dir.exists(dir)){dir.create(dir)}
+
+
+for (i in 0:4){
+  
+magick::image_read_pdf("toy_exercise.pdf", pages = 8 + i) %>% 
+  magick::image_border("grey15", "20x10") %>% # create images
+  magick::image_annotate(text = i + 1, gravity = "center", 
+                         size = 1600, color = "#00000033") %>% 
+  magick::image_write(path = paste0("figures/", i,  "my_flipbook.png")) 
+  
+}
+
+
+dir %>% 
+  list.files(path = ., pattern = "my_") %>% 
+  paste0(dir, "/", .) %>% 
+knitr::include_graphics()
+```
+
+
+
+# What might the student/instructor experience look like?
+
+Some students will be able to determine the steps needed to get to that target, just by looking at the final target.  In that case, students can build the data manipulation pipeline without looking ahead.  After reaching the target they can then compare their strategy to that of the walk-through.  
+
+Other students may not be able to come up with the entire sequence of steps needed to wrangle to the target output.  If a student is initially stumped about how to arrive at the final target, they can look ahead to the walk-through that includes the intermediary outputs. These students may be able to accomplish the task by taking it step-by-step.   They may be able to at least manage some progress towards the overall target, perhaps getting some assistance from a peer or the instructor if they find a step in the pipeline to be a puzzle.    
+
+There's a subliminal 'take-away' message is about problem solving in data science here too:  *you may have some big task ahead of you, but stay cool.  Try to break up the task into pieces --- it will probably feel more manageable.*  
+
+As an instructor the task of assisting students who might have trouble may also be more manageable.  Students are less likely to be stumped by the entire data manipulation challenge; and even if they are, the task is already logically broken up for the instructor to talk through with students.   Students will likely approach the instructor about the specific step in manipulation pipeline rather than an amorphous and possibly exasperated 'I don't know how to get this done!'  
+
+# Data manipulation as a general problem 
+
+I think that an advantage of this outcome-oriented exercise, too, is that it de-emphasizes specific tools. Sometimes the focus of data manipulation exercises is syntactical focusing on the language being used.  But this exercise puts the data transformation center stage (subsetting, keeping columns, summarizing etc).  In fact, a large number of statistical software or syntactical paradigms can be used to accomplish the manipulation tasks presented in the assignment.  
+
+I personally teach and built this exercise using 'the tidyverse' which does have some signatures in the output (like a separate group_by step when compared to data.table for example).  But the manipulation tasks could also be solved in Stata, SQL, SPSS, SAS, R tidyverse, base R, data.table, python's pandas -- or something yet to be invented!  This shifts the emphasis from a *how* question (specific implementation and syntax) to a more general *what* question. The question "what are the data manipulation moves that I can make?" is primary, and how to do that is secondary. 
+
+The example that I link to has about 15 wrangling pipelines --- a fair amount of practice for beginning to internalize new tools and modes of thinking.  The first half I call 'one-stream' data manipulation and the second half is on summarizing data. Educators should feel free to use this exercise as is or can create their own outcome-oriented tasks using the new [{flipbookr} package](https://github.com/EvaMaeRey/flipbookr)! 
+
+# How to build your own exercise
+
+If you are familiar with R and Rmarkdown, you're in a good place to start building these outcome-oriented educational tasks.  Still some things will be new so let's go through them.  
+
+A package that we'll use beyond {flipbookr} is the {xaringan} package, which translates an Rmarkdown (.Rmd) file to an .html slide show.  For background on {xaringan} you might first check out [an introduction](https://bookdown.org/yihui/rmarkdown/xaringan.html) and later come back to a [styling guide](https://arm.rbind.io/slides/xaringan.html#1)
+
+To set up your Rmarkdown file to render to a {xaringan} slideshow, you may use a YAML like the one that follows:
+
+````markdown
+---
+title: "My First Flipbook"
+subtitle: "With flipbookr and xaringan"
+author: "Your name here"
+output:
+  xaringan::moon_reader:
+    lib_dir: libs
+    css: [default, hygge, ninjutsu]
+    nature:
+      ratio: 16:10
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+---
+````
+
+In a set up code chunk, load the flipbookr package and other packages that students will need to accomplish the tasks you are building. 
+
+````markdown
+```{r setup, include = FALSE}`r ''`
+library(flipbookr)
+library(tidyverse)
+
+knitr::opts_chunk$set(fig.width = 6, message = FALSE, 
+                      warning = FALSE, comment = "", 
+                      cache = F, dev = "svg")
+```
+````
+
+Including the following css code chunk 
+
+
+
+
+> *The following exercises are designed to help you practice your data wrangling "vocabulary". In the exercises, you'll always start from the full 'gapminder' data and wrangle to a target using functions from {dplyr} (one of the packages made available in the tidyverse).*
+
+
+<!-- Chance is a quarterly non-technical statistics magazine published jointly by the American Statistical Association and Taylor & Francis Group. It was established in 1988, and Taylor & Francis has published it since 2012. The magazine sponsors the blog "The Statistics Forum", which allows anyone to post their thoughts on probability and statistics. -->
+
+<!-- https://chance.amstat.org/ -->
+
+<!-- https://chance.amstat.org/category/columns/taking-a-chance-in-the-classroom/ -->
+
+<!-- --- -->
+
+<!-- CHANCE is copublished quarterly by the American Statistical Association and Taylor & Francis Group The magazine is designed for anyone who has an interest in the analysis of data, informally highlighting sound statistical practice. CHANCE is not a technical magazine, but rather a cultural record of an evolving field, intended to entertain as well as inform. -->
+
+<!-- Since its creation in 1988, CHANCE has covered such topics as the 1990 census adjustment and the redesigned population survey, sports, the environment, DNA evidence in the courts, a variety of medical issues—even how to win on "Jeopardy." CHANCE offers a unique opportunity to reach beyond statistics professionals to a more general audience. -->
+
+<!-- While we invite authors to submit articles in ready-to-publish form, we also encourage prospective authors to submit ideas for articles or articles that are not yet in final form, and we will try to help with their development. -->
+
+<!-- --- -->
+
+<!-- Writing for CHANCE -->
+<!-- We prefer short manuscripts of 10 to 15 double-spaced typewritten pages. Authors are encouraged to write in a relaxed, expository style; opinion, humor, and historical comments can (and should) be intermingled to make lively reading. Additional suggestions regarding writing for CHANCE are offered under Hints for Authors. -->
+
+<!-- Submitting Files -->
+<!-- Submit material via email as a PDF document and a Microsoft Word file to the editor at the following address: -->
+
+<!-- Amanda Plunkett -->
+<!-- CHANCE Editor -->
+<!-- chancemag.editor@gmail.com -->
+<!-- CHANCE Style -->
+<!-- Details for listing and citing references are given in the ASA Magazine Style Guide (PDF). -->
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 90%}
+```
