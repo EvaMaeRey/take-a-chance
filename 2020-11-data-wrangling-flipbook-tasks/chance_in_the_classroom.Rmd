@@ -104,48 +104,43 @@ The example that I link to has about 15 wrangling pipelines --- a fair amount of
 
 # How to build your own exercise
 
-If you are familiar with R and Rmarkdown, you're in a good place to start building these outcome-oriented educational tasks.  Still some things will be new so let's go through them.  
+If you are familiar with R and Rmarkdown, you're in a good place to start building these outcome-oriented educational tasks.  Still some things will be new and I'll discuss them here, but it will also be useful to look at [a basic tutorial](https://evamaerey.github.io/flipbooks/flipbook_recipes#1) on creating your first flipbooks and a short example of how to build an outcome-oriented exercise that I'm proposing [toy exercise]().
 
-A package that we'll use beyond {flipbookr} is the {xaringan} package, which translates an Rmarkdown (.Rmd) file to an .html slide show.  For background on {xaringan} you might first check out [an introduction](https://bookdown.org/yihui/rmarkdown/xaringan.html) and later come back to a [styling guide](https://arm.rbind.io/slides/xaringan.html#1)
+First, to get the movie-like experience of flipbooks, we need a slide show tool.  The flipbookr package is used with the Rmarkdown tool xaringan to deliver material to .html slides.  Your rmarkdown file will need to have the appropriate meta data set up so that these slides are produced.  
 
-To set up your Rmarkdown file to render to a {xaringan} slideshow, you may use a YAML like the one that follows:
+Then you can write a code chunk with steps of a data manipulation task.  The code chunk options should be set to echo = FALSE and eval = TRUE so that the result displays but the code is hidden.  After a slide break, you'll then use the flipbookr function chunk_reveal to refer to the task chunk.  You should set `display_type` to "output" so that only the output is shown, but the code to accomplish the steps is hidden.
 
 ````markdown
 ---
-title: "My First Flipbook"
-subtitle: "With flipbookr and xaringan"
-author: "Your name here"
-output:
-  xaringan::moon_reader:
-    lib_dir: libs
-    css: [default, hygge, ninjutsu]
-    nature:
-      ratio: 16:10
-      highlightStyle: github
-      highlightLines: true
-      countIncrementalSlides: false
----
-````
 
-In a set up code chunk, load the flipbookr package and other packages that students will need to accomplish the tasks you are building. 
+# Target #1
 
-````markdown
-```{r setup, include = FALSE}`r ''`
-library(flipbookr)
-library(tidyverse)
-
-knitr::opts_chunk$set(fig.width = 6, message = FALSE, 
-                      warning = FALSE, comment = "", 
-                      cache = F, dev = "svg")
+```{r task1, eval = FALSE}`r ''`
+cars %>% 
+  ggplot() +
+  aes(x = speed) +
+  aes(y = dist) + #BREAK
+  geom_point(
+             shape = 21,
+             size = 7, #BREAK2
+             color = "magenta", #BREAK3
+             alpha = .8 #BREAK4
+             ) + #BREAK
+  aes(fill = speed) +
+  scale_fill_viridis_c() +
+  theme_minimal() #BREAK
 ```
 ````
 
-Including the following css code chunk 
+```markdown
+---
+
+``r 'r chunk_reveal(chunk_name = "task1", display_type = "output", title = "## Walk-through #1" )'``
+``` 
 
 
 
 
-> *The following exercises are designed to help you practice your data wrangling "vocabulary". In the exercises, you'll always start from the full 'gapminder' data and wrangle to a target using functions from {dplyr} (one of the packages made available in the tidyverse).*
 
 
 <!-- Chance is a quarterly non-technical statistics magazine published jointly by the American Statistical Association and Taylor & Francis Group. It was established in 1988, and Taylor & Francis has published it since 2012. The magazine sponsors the blog "The Statistics Forum", which allows anyone to post their thoughts on probability and statistics. -->
