@@ -2,7 +2,7 @@
 title: "Using flipbooks to build outcome-oriented educational tasks"
 subtitle: "For *Chance Magazine's* 'Taking a chance in the classroom'"
 author: "Evangeline Reynolds, June 2020"
-output: pdf_document
+output: html_document
   # xaringan::moon_reader:
   #   lib_dir: libs
   #   css: [default, hygge, ninjutsu]
@@ -31,7 +31,7 @@ library(tidyverse)
 
 ---
 
-One goal of data science and statistics classes is to give students practice with tools so they are comfortable preparing and analyzing data.  A new way to engage students with such tasks is by using the new {flipbookr} package to build outcome-oriented exercises.  
+One goal of data science and statistics courses is to give students practice with tools so they are comfortable preparing and analyzing data.  A new way to engage students with such tasks is by using the new *flipbookr* package to build outcome-oriented exercises.  
 
 The flipbookr package is a tool that was originally built to show analysis code pipelines (manipulation, visualization, statistical analysis), step-by-step with output in a slide-show presentation.  This gives you a movie-like experience linking new code to the change that it triggers in output.  
 
@@ -39,7 +39,7 @@ But flipbookr can also be used in a mode where *only output* is displayed.  This
 
 # What's this new style of exercise?
 
-Let's think about an exercise to build up data manipulation practice using flipbookr.  First, there might be a reference section of what functions can be used to accomplish the required tasks, or the instructor can present these functions. Then a target is introduced.  The target will be a final output of a data manipulation pipeline, where the input is a familiar data set.  (I use the 'gapminder' data set.  My students know the data set having seen the Hans Rosling presentation, and having worked with it a bit for data visualization.) After presenting the final target, a walk-through from input to target --- including intermediary states --- are displayed.  Students are instructed to 'wrangle to it'; i.e. use data manipulation functions to wrangle their way to the target output.  Subsequent exercises (which may become progressively more challenging given more wrangling steps) are structured in the same way. First the target output is presented, and then a walk-though with intermediate outputs is shown. An example of a flipbook containing data manipulation exercise can be viewed [here](https://evamaerey.github.io/data_manipulation/exercises/wrangle_away#1). 
+A data manipulation exercise built with flipbookr might look as follows.  First, there might be a reference section of what functions can be used to accomplish the required tasks, or the instructor can present these functions. Then a target is introduced.  The target will be a final output of a data manipulation pipeline, where the input is a familiar data set.  (I use the 'gapminder' data set.  My students know the data set having seen the Hans Rosling presentation, and having worked with it a bit for data visualization.) After presenting the final target, a walk-through from input to target --- including intermediary states --- are displayed.  Students are instructed to 'wrangle to it'; i.e. use data manipulation functions to wrangle their way to the target output.  Subsequent exercises (which may become progressively more challenging given more wrangling steps) are structured in the same way. First the target output is presented, and then a walk-through with intermediate outputs is shown. An example can be viewed here (https://evamaerey.github.io/data_manipulation/exercises/wrangle_away#1). 
 
 
 ```{r, eval = F, echo = F, out.width="50%", fig.cap="Slides constituting one data wrangling task."}
@@ -84,15 +84,15 @@ As an instructor the task of assisting students who might have trouble may also 
 
 # Data manipulation as a general problem 
 
-I think that an advantage of this outcome-oriented exercise, too, is that it de-emphasizes specific tools. Sometimes the focus of data manipulation exercises is syntactical focusing on the language being used.  But this exercise puts the data transformation center stage (subsetting, dropping columns, summarizing, etc.).  In fact, a large number of statistical software or syntactical paradigms can be used to accomplish the manipulation tasks presented in the assignment.  
+I think that an advantage of this outcome-oriented exercise is that it de-emphasizes specific tools. Sometimes the focus of data manipulation exercises is syntactical --- focusing on the language being used.  But this exercise puts the data transformation center stage (subsetting, dropping columns, summarizing, etc.).  In fact, a large number of statistical software or syntactical paradigms can be used to accomplish the manipulation tasks presented in the assignment.  
 
 I personally teach and built this exercise using 'the tidyverse' which does have some signatures in the output (like a separate group_by step when compared to data.table for example).  But the manipulation tasks could also be solved in Stata, SQL, SPSS, SAS, R tidyverse, base R, data.table, python's pandas -- or something yet to be invented!  This shifts the emphasis from a *how* question (specific implementation and syntax) to a more general *what* question. The question "what are the data manipulation moves that I can make?" is primary, and the how-to syntax is secondary. 
 
-The example that I link to has about 15 wrangling pipelines --- a fair amount of practice for beginning to internalize new tools and modes of thinking.  I call the first half 'one-stream' data manipulation and the second half is on summarizing data. Educators should feel free to use this exercise as is or can create their own outcome-oriented tasks using the new [{flipbookr} package](https://github.com/EvaMaeRey/flipbookr)! 
+The example that I link to has about 15 wrangling pipelines --- a fair amount of practice for beginning to internalize new tools and modes of thinking.  I call the first half 'one-stream' data manipulation and the second half is on summarizing data. Educators should feel free to use this exercise as is or can create their own outcome-oriented tasks using the new {flipbookr} package (https://github.com/EvaMaeRey/flipbookr)! 
 
 # How to build your own exercise
 
-If you are familiar with R and Rmarkdown, you're in a good place to start building these outcome-oriented educational tasks.  Still, some things will be new and I'll discuss them here briefly.  For more detailed guidance it will also be useful to look at [a basic tutorial](https://evamaerey.github.io/flipbooks/flipbook_recipes#1) on creating your first flipbooks and a short example of exactly how to build an outcome-oriented exercise that I'm proposing [toy exercise]().
+If you are familiar with R and Rmarkdown, you're in a good place to start building these outcome-oriented educational tasks.  Still, some things will be new and I'll discuss them here briefly.  For more detailed guidance it will also be useful to look at a basic tutorial (https://evamaerey.github.io/flipbooks/flipbook_recipes) on creating your first flipbooks and a short example of exactly how to build an outcome-oriented exercise that I'm proposing toy exercise (https://raw.githubusercontent.com/EvaMaeRey/take-a-chance/master/2020-11-data-wrangling-flipbook-tasks/toy_exercise.Rmd).
 
 First, to get the movie-like experience of flipbooks, we need a slide show tool.  The flipbookr package is used with the Rmarkdown package xaringan to deliver material to .html slides.  Your Rmarkdown file will need to have the appropriate meta data set up so that these slides are produced.  
 
@@ -104,19 +104,10 @@ Once you have this in place, you can then write a code chunk with steps of a dat
 # Target #1
 
 ```{r task1, eval = FALSE}`r ''`
-cars %>% 
-  ggplot() +
-  aes(x = speed) +
-  aes(y = dist) + #BREAK
-  geom_point(
-             shape = 21,
-             size = 7, #BREAK2
-             color = "magenta", #BREAK3
-             alpha = .8 #BREAK4
-             ) + #BREAK
-  aes(fill = speed) +
-  scale_fill_viridis_c() +
-  theme_minimal() #BREAK
+mtcars %>% 
+  select(mpg:wt) %>% 
+  arrange(-mpg) %>% 
+  slice(1:5)
 ```
 ````
 
@@ -161,7 +152,7 @@ cars %>%
 
 # Going further
 
-At the end of data manipulation pipelines, you might add the task to create a descriptive name for an object that will hold the manipulated data or describe the data manipulation steps in words. Also, educators might think about creating outcome oriented tasks in flipbooks beyond data wrangling. These incremental outcome-oriented tasks might be created for data visualization or even data analysis.    
+At the end of data manipulation pipelines, you might ask students to create a descriptive name for an object that will hold the manipulated data or describe the data manipulation steps in words. Also, educators might think about creating outcome oriented tasks in flipbooks beyond data wrangling. These incremental outcome-oriented tasks might be created for data visualization or even data analysis.    
 
 
 
