@@ -376,6 +376,7 @@ summary {
 <div id="whats-this-new-style-of-exercise" class="section level1">
 <h1>What’s this new style of exercise?</h1>
 <p>A data manipulation exercise built with flipbookr might look as follows. First, there might be a reference section of what functions can be used to accomplish the required tasks, or the instructor can present these functions. Then a target is introduced. The target will be a final output of a data manipulation pipeline, where the input is a familiar data set. (I use the ‘gapminder’ data set. My students know the data set having seen the Hans Rosling presentation, and having worked with it a bit for data visualization.) After presenting the final target, a walk-through from input to target — including intermediary states — are displayed. Students are instructed to ‘wrangle to it’; i.e. use data manipulation functions to wrangle their way to the target output. Subsequent exercises (which may become progressively more challenging given more wrangling steps) are structured in the same way. First the target output is presented, and then a walk-through with intermediate outputs is shown. An example can be viewed here (<a href="https://evamaerey.github.io/data_manipulation/exercises/wrangle_away#1" class="uri">https://evamaerey.github.io/data_manipulation/exercises/wrangle_away#1</a>).</p>
+<p>You’ll probably want to host the resulting html and associated files online for students. Github Pages has worked well in my experience.</p>
 </div>
 <div id="what-might-the-studentinstructor-experience-look-like" class="section level1">
 <h1>What might the student/instructor experience look like?</h1>
@@ -408,6 +409,13 @@ mtcars %&gt;%
 <pre class="markdown"><code>---
 
 `r chunk_reveal(chunk_name = &quot;task1&quot;, display_type = &quot;output&quot;, title = &quot;## Walk-through #1&quot; )`</code></pre>
+</div>
+<div id="going-further" class="section level1">
+<h1>Going further</h1>
+<p>At the end of data manipulation pipelines, you might ask students to create a descriptive name for an object that will hold the manipulated data or describe the data manipulation steps in words. Also, educators might think about creating outcome oriented tasks in flipbooks beyond data wrangling. Incremental outcome-oriented tasks might be created for data visualization or even data analysis.</p>
+<style type="text/css">
+.remark-code{line-height: 1.5; font-size: 90%}
+</style>
 <!-- Chance is a quarterly non-technical statistics magazine published jointly by the American Statistical Association and Taylor \& Francis Group. It was established in 1988, and Taylor \& Francis has published it since 2012. The magazine sponsors the blog "The Statistics Forum", which allows anyone to post their thoughts on probability and statistics. -->
 <!-- https://chance.amstat.org/ -->
 <!-- https://chance.amstat.org/category/columns/taking-a-chance-in-the-classroom/ -->
@@ -425,13 +433,6 @@ mtcars %&gt;%
 <!-- chancemag.editor@gmail.com -->
 <!-- CHANCE Style -->
 <!-- Details for listing and citing references are given in the ASA Magazine Style Guide (PDF). -->
-</div>
-<div id="going-further" class="section level1">
-<h1>Going further</h1>
-<p>At the end of data manipulation pipelines, you might ask students to create a descriptive name for an object that will hold the manipulated data or describe the data manipulation steps in words. Also, educators might think about creating outcome oriented tasks in flipbooks beyond data wrangling. These incremental outcome-oriented tasks might be created for data visualization or even data analysis.</p>
-<style type="text/css">
-.remark-code{line-height: 1.5; font-size: 90%}
-</style>
 </div>
 
 

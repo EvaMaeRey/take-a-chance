@@ -63,14 +63,13 @@ magick::image_read_pdf("toy_exercise.pdf", pages = 8 + i) %>%
   
 }
 
-
 dir %>% 
   list.files(path = ., pattern = "my_") %>% 
   paste0(dir, "/", .) %>% 
 knitr::include_graphics()
 ```
 
-
+You'll probably want to host the resulting html and associated files online for students.  Github Pages has worked well in my experience. 
 
 # What might the student/instructor experience look like?
 
@@ -122,6 +121,19 @@ mtcars %>%
 
 
 
+
+# Going further
+
+At the end of data manipulation pipelines, you might ask students to create a descriptive name for an object that will hold the manipulated data or describe the data manipulation steps in words. Also, educators might think about creating outcome oriented tasks in flipbooks beyond data wrangling. Incremental outcome-oriented tasks might be created for data visualization or even data analysis.    
+
+
+
+```{css, eval = TRUE, echo = FALSE}
+.remark-code{line-height: 1.5; font-size: 90%}
+```
+
+
+
 <!-- Chance is a quarterly non-technical statistics magazine published jointly by the American Statistical Association and Taylor \& Francis Group. It was established in 1988, and Taylor \& Francis has published it since 2012. The magazine sponsors the blog "The Statistics Forum", which allows anyone to post their thoughts on probability and statistics. -->
 
 <!-- https://chance.amstat.org/ -->
@@ -149,13 +161,3 @@ mtcars %>%
 <!-- chancemag.editor@gmail.com -->
 <!-- CHANCE Style -->
 <!-- Details for listing and citing references are given in the ASA Magazine Style Guide (PDF). -->
-
-# Going further
-
-At the end of data manipulation pipelines, you might ask students to create a descriptive name for an object that will hold the manipulated data or describe the data manipulation steps in words. Also, educators might think about creating outcome oriented tasks in flipbooks beyond data wrangling. These incremental outcome-oriented tasks might be created for data visualization or even data analysis.    
-
-
-
-```{css, eval = TRUE, echo = FALSE}
-.remark-code{line-height: 1.5; font-size: 90%}
-```
