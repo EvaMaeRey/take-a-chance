@@ -2,7 +2,7 @@
 title: "Outcome-oriented educational tasks with flipbooks"
 subtitle: "For *Chance Magazine's* 'Taking a chance in the classroom'"
 author: "Evangeline Reynolds, June 2020"
-output: html_document
+output: pdf_document
   # xaringan::moon_reader:
   #   lib_dir: libs
   #   css: [default, hygge, ninjutsu]
@@ -31,14 +31,14 @@ library(tidyverse)
 
 ---
 
-A goal of data science and statistics courses is giving students practice preparing and analyzing data.  A new style of assignment presents outcome-oriented exercises in 'flipbooks' (evamaerey.github.io/flipbooks/about).  Typically 'flipbooks' present code step-by-step and side-by-side with output. This gives you a movie-like experience linking new code to the change that it triggers in output.  But flipbookr can also be used in an *only output* mode.  This mode can be used in data science and statistics classrooms!  
+A goal of data science and statistics courses is giving students practice preparing and analyzing data.  A new style of assignment presents outcome-oriented exercises in 'flipbooks' (evamaerey.github.io/flipbooks/about).  Typically 'flipbooks' present code step-by-step and side-by-side with output. This gives you a movie-like experience linking new code to the change that it triggers in output.  But flipbookr can also be used in an *only output* mode.  This mode can be used in data science and statistics classrooms to create engaging outcome-oriented assignments!  
 
 # What's this new style of exercise?
 
-A flipbook data manipulation assignment might look as follows.  First, you might have a reference section of functions that can be used to accomplish the required tasks. Then a target data frame is introduced.  The target will be a final output of a data manipulation pipeline, where the input is a familiar data set (I use the 'gapminder' data set which my students having worked with for data visualization). Then, a walk-through from input to target --- including intermediary states --- are displayed.  Students are instructed to 'wrangle to it'; i.e. use the new data manipulation functions to get to the target output.  A series of addtional exercises are structured in the same way. A target is presented. Then a walk-through of states is shown. A collection of slides that constitutes one wrangling exercise follows and a full set of exercises can be viewed here (https://tinyurl.com/y6b9z5vx). 
+A flipbook data manipulation assignment might look as follows.  First, you might have a reference section of functions that can be used to accomplish the required tasks. Then a target data frame is introduced.  The target will be a final output of a data manipulation pipeline, where the input is a familiar data set (I use the 'gapminder' data set which my students having worked with for data visualization). Then, a walk-through from input to target --- including intermediary states --- are displayed.  Students are instructed to 'wrangle to it'; i.e. use the new data manipulation functions to get to the target output.  A series of additional exercises are structured in the same way. A target is presented. Then a walk-through of states is shown. A collection of slides that constitutes one wrangling exercise follows and a full set of exercises can be viewed here (https://tinyurl.com/y6b9z5vx). 
 
 
-```{r, eval = T, echo = F, out.width="50%", fig.cap="Slides constituting one data wrangling task.",  fig.show='hold'}
+```{r eval=F, echo = F}
 # xaringan html to pdf
 pagedown::chrome_print("toy_exercise.html")
 
@@ -58,6 +58,10 @@ magick::image_read_pdf("toy_exercise.pdf", pages = 8 + i) %>%
   magick::image_write(path = paste0("figures/", i,  "my_flipbook.png")) 
   
 }
+```
+
+```{r, eval = T, echo = F, out.width="50%", fig.cap="Slides constituting one data wrangling task.",  fig.show='hold'}
+dir <- "figures"
 
 dir %>% 
   list.files(path = ., pattern = "my_") %>% 
