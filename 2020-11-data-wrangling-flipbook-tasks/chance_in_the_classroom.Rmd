@@ -38,7 +38,7 @@ A goal of data science and statistics courses is giving students practice prepar
 A flipbook data manipulation assignment might look as follows.  First, you might have a reference section of functions that can be used to accomplish the required tasks. Then a target data frame is introduced.  The target will be a final output of a data manipulation pipeline, where the input is a familiar data set (I use the 'gapminder' data set which my students having worked with for data visualization). Then, a walk-through from input to target --- including intermediary states --- are displayed.  Students are instructed to 'wrangle to it'; i.e. use the new data manipulation functions to get to the target output.  A series of addtional exercises are structured in the same way. A target is presented. Then a walk-through of states is shown. A collection of slides that constitutes one wrangling exercise follows and a full set of exercises can be viewed here (https://tinyurl.com/y6b9z5vx). 
 
 
-```{r, eval = F, echo = F, out.width="50%", fig.cap="Slides constituting one data wrangling task."}
+```{r, eval = T, echo = F, out.width="50%", fig.cap="Slides constituting one data wrangling task.",  fig.show='hold'}
 # xaringan html to pdf
 pagedown::chrome_print("toy_exercise.html")
 
